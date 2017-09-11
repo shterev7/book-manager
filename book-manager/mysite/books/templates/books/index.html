@@ -1,0 +1,60 @@
+{% extends "personal/header.html" %}
+{% block content %}
+
+<body>
+
+<form method="GET" action='/books/search'>
+<div>
+	<label for="searchbar">
+	<img src="/static/admin/img/search.svg" alt="Search">
+	</label>
+	<input type="text" name="q" id=search placeholder="Search books" />
+	<input type="submit" value="Search" />
+</div>
+</form>
+
+<form action="/books/create_book" method="post">
+	{%csrf_token%}
+	<label for="title">Title: <input type="text" name="title" id="title" /></label>
+    <label class="required" for="author">Author:</label>
+
+    <select id="author" name="author">
+    <option value="Z">Select an author</option>
+          {% for author in authors %}
+              <option value="{{author.id}}">{{author.first_name}} {{ author.last_name }}</option>
+          {% endfor %}
+        </select>
+	<input type="submit" value="Create" />
+</form>
+
+<div style="overflow-x:auto;">
+<div class="booksbar">
+<table border = "1">
+	<thead>
+	<tr>
+		<th>Book Title</th>
+		<th>Author Name</th>
+		<th>Actions</th>
+	</tr>
+	</thead>
+	<tbody>
+		{% for book in results %}
+		<tr>
+			<td>{{ book.title }}</td>
+			<td>{{ book.author.first_name }} {{ book.author.last_name }}</td>
+			<td><a href="/books/edit_book/{{ book.id }}">Edit</a>
+                <a href="/books/delete_book/{{ book.id }}">Delete</a>
+                <a href="/books/add_review_to_book/{{ book.id }}">Review</a></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+	</table>
+	</div>
+</div>
+
+
+	</body>
+
+{% endblock %}	
+	
+

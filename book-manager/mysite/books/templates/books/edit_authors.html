@@ -1,0 +1,16 @@
+{% extends 'personal/header.html' %}
+{% block content %}
+
+<form action="/update_author/{{ author.id }}" method="post">
+		{% csrf_token %}
+		<label for="first_name">Firstname:<input type="text" name="first_name" id="first_name"
+		value="{{ author.first_name }}" placeholder="{{ author.first_name }}" />
+		</label>
+
+		<label for="last_name">Lastname:<input type="text" name="last_name"
+		value="{{ author.last_name }}" placeholder="{{ author.last_name }}" />
+		</label>
+		<input type="submit" value="Update"/>
+	</form>
+	
+{% endblock %}

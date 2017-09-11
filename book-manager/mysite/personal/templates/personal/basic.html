@@ -1,0 +1,12 @@
+{% extends "personal/header.html" %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+    <form action="" method="POST">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="submit" class="button">
+    </form>
+
+{% endblock %}

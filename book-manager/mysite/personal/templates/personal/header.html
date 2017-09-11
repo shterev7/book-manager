@@ -1,0 +1,110 @@
+
+<html lang="en">
+
+<head>
+    <title>Book Manager</title>
+    <meta charset="utf-8" />
+    {% load staticfiles %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../static/personal/css/styles.css">
+
+</head>
+
+<body>
+        <div class="collapse navbar-collapse" id="topNavBar">
+        <div class="adminbut">
+   {% if user.is_authenticated and user.is_superuser %}
+            <div class="alert alert-success" role="alert">
+            You are logged in as {{user.username}}, here are the
+            <a href="/admin/">admin pages</a> for changing content.
+            </div>
+            {% endif %}
+        </div>
+            {% if user.is_authenticated and not user.is_superuser %}
+              <div class="alert alert-success" role="alert">
+                You are logged in as {{user.username}},Welcome!!!
+                </div>
+            {% endif %}
+
+            <div class="logout">
+            {% if user.is_authenticated %}
+            
+            <ul class="nav navbar-nav navbar-right">
+            <li>
+                    <a href="{% url 'books:logout_user' %}">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
+                    </a>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
+<body class="body" style="background-color:#f6f6f6">
+    <div class="container-fluid" style="min-height:95%; ">
+        <div class="row">
+              <div class="col-sm-2">
+                  <br>
+                  <center>
+                    <img src="{% static 'personal/img/books.png' %}" class="responsive-img" style='max-height:100px;' alt="face">
+                  </center>
+              </div>
+              <div class="col-sm-10">
+                  <br>
+                  <center>
+                  <h3>Book managing system</h3>
+                  </center>
+              </div>
+        </div><hr>
+
+        <div class="row">
+          <div class="col-sm-2">
+          <br>
+
+          <br>
+            <!--<div class="well bs-sidebar affix" id="sidebar" style="background-color:#fff">-->
+            <div class="well bs-sidebar" id="sidebar" style="background-color:#fff">
+              <ul class="nav nav-pills nav-stacked">
+                <li><a href='/'>Home</a></li>
+                <li><a href='/blog/'>Blog</a></li>
+                <li><a href='/books/'>Books</a></li>
+                <li><a href='/books/authors_index'>Authors</a></li>
+                
+                {% if not user.is_authenticated %}
+                <li><a href='/books/login_user/'>Login</a></li>
+		<li><a href='/books/register/'>Register</a></li>
+		{% endif %}
+                <li><a href='/contact/'>Contact</a></li>
+              </ul>
+            </div> <!--well bs-sidebar affix-->
+          </div> <!--col-sm-2-->
+          <div class="col-sm-10">
+          
+            <div class='container-fluid'>
+            <br><br>
+               {% block content %}
+               {% endblock %}   
+            </div>
+          </div>
+        </div> 
+    </div>
+    <div class="message">
+    {% if messages %}
+            {% for message in messages %}
+                <div class="{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <footer>
+        <div class="container-fluid" style='margin-left:15px'>
+        <div class="contactline">
+            <p><a href="#" target="blank">Contact</a> | <a href="#" target="blank">LinkedIn</a> | <a href="#" target="blank">Twitter</a> | <a href="#" target="blank">Google+</a></p>
+        </div>
+        </div>
+    </footer>   
+    
+</body>
+
+</html>

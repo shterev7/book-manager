@@ -1,0 +1,19 @@
+{% extends 'personal/header.html' %}
+
+{% block content %}
+        <hr>
+    <a class="btn btn-default" href="{% url 'books:add_review_to_book' id=book.id %}">Add another review</a>
+{% for review in book.reviews.all %}
+    {% if user.is_authenticated %}
+    <div class="review">
+        <div class="date">
+            {{ review.created_date }}
+        </div>
+        <strong>{{ review.author }}</strong>
+        <p>{{ review.text|linebreaks }}</p>
+    </div>
+    {% endif %}
+{% empty %}
+    <p>No comments here yet :(</p>
+{% endfor %}
+{% endblock content %}
