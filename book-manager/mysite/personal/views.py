@@ -1,10 +1,8 @@
 from django.contrib import messages
 from django.conf import settings
 from django.core.mail import send_mail
-from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
 from django.template.loader import get_template
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from . import forms
 
@@ -28,7 +26,7 @@ def contact(request):
             contact_email = form.cleaned_data['email']
             contact_message = form.cleaned_data['message']
 
-            template =  get_template('personal/contact_template.txt')
+            template = get_template('personal/contact_template.txt')
             context = {
                 'contact_name': contact_name,
                 'contact_email': contact_email,
@@ -41,12 +39,13 @@ def contact(request):
             send_mail(
                 'New message from Contact form', 
                 content, 
-                'Contact <{}>'.format(from_email), 
-                ['blabla@bla.com'] 
+                'Contact <{}>'.format(from_email),
+                ['to_email']
             )
 
             messages.add_message(request, messages.SUCCESS, 'Thanks for contacting us!')
 
-            return HttpResponseRedirect(reverse('contact'))
+            return redirect('contact')
+        return render(request, 'contact', {'form': form})
 
 
