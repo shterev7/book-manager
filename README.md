@@ -6,6 +6,7 @@ Django book managing system with review feature for each book.
 3) Registration and login.
 4) Permissions for registered and unregistered users.
 5) Search feature by author name or book title.
+6) Review feature for each book.
 
 # Project Setup Python 3.6 required
 1) Install virtual environment via `cmd` or `gitbash` - `pip install virtualenv`
