@@ -10,7 +10,7 @@ class Book(models.Model):
     author = models.ForeignKey('Author', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return self.title + ' - ' + self.author
+        return self.title + ' - ' + str(self.author)
 
 
 class Author(models.Model):

@@ -92,7 +92,8 @@ def create_author(request):
 
 def edit_book(request, id):
     book = Book.objects.get(id=id)
-    context = dict(book=book)
+    authors = Author.objects.all()
+    context = dict(book=book, authors=authors)
     return render(request, 'books/edit.html', context)
 
 
@@ -105,9 +106,10 @@ def edit_author(request, id):
 def update_book(request, id):
     book = Book.objects.get(id=id)
     book.title = request.POST.get('title')
-    book.author.first_name = request.POST.get('first_name')
-    book.author.last_name = request.POST.get('last_name')
+    book.author.first_name = request.GET.get('first_name')
+    book.author.last_name = request.GET.get('last_name')
     book.save()
+
     return redirect('/books')
 
 
